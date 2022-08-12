@@ -1,10 +1,12 @@
 const fs = require('fs');
 require('dotenv').config();
 const { ApolloServer } = require('apollo-server-express');
+const path = require('path');
 
 const GraphQLDate = require('./graphql_date');
 const about = require('./about');
 const issue = require('./issue');
+
 
 const resolvers = {
   Query: {
@@ -22,7 +24,8 @@ const resolvers = {
 };
 
 const server = new ApolloServer({
-  typeDefs: fs.readFileSync('api/schema.graphql', 'utf-8'),
+  // typeDefs: fs.readFileSync('api/schema.graphql', 'utf-8'),
+  typeDefs: fs.readFileSync(path.join(process.cwd(), 'api', 'schema.graphql'), 'utf-8'),
   resolvers,
   formatError: (error) => {
     console.log(error);
